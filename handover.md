@@ -1,8 +1,8 @@
 # Handover — Current State of the ENAUTO 300-435 Study
 
-**Last updated:** 2026-05-21 (Week 1 Day 1 — bootstrap + pre-stage)
-**Updated by:** Claude (Week 1 Day 1 session with Beto)
-**Status:** ✅ Repo live. Lab 01 pre-staged. Theory input (CBT Nuggets Data Modelling + silvancodes 1.0) DONE. Ready for Day 4 pyang lab on Beto's signal.
+**Last updated:** 2026-05-21 (Week 1 Day 4 — Lab 01 pyang block complete)
+**Updated by:** Beto
+**Status:** ✅ 01-pyang done. 1.1 notes written. Ready for Day 5 (NETCONF get-config).
 
 > **For any new AI session:** Read `master_context.md` first, then this file. Confirm understanding briefly, then wait for Beto's go-ahead before doing anything.
 
@@ -13,9 +13,9 @@
 | Field | Value |
 |---|---|
 | Current week | **1** |
-| Current day in week | Days 1–3 done (bootstrap + theory input). Ready for Day 4 (pyang lab). |
+| Current day in week | Day 4 done (pyang). Ready for Day 5 (NETCONF get-config). |
 | Current blueprint domain | 1.0 Foundation |
-| Current sub-topic | 1.1–1.5 theory done; about to lab them (Lab 01, Days 4–6) |
+| Current sub-topic | 1.1/1.3/1.4/1.5 labbed; 1.2 next (Days 5–6) |
 | Days until ceiling exam date (2026-08-17) | 88 |
 | Active sandbox reservation | none (Meraki public key always available; first reservation ~Day 24) |
 | Weeks completed | 0 / 13 |
@@ -23,6 +23,10 @@
 ---
 
 ## 2. Last session — summary
+
+**Session date:** 2026-05-21 (Day 4)
+**Outcome:** 01-pyang complete. Fetched 3 interfaces modules + full dependency chains (native needed 6 deps via -p; OpenConfig needed 5, incl. transport-types from optical-transport/ + platform-types). Ran -f tree on all three, saved to output/. XML skeleton on OpenConfig. JSON done by hand. 1.1 notes (E1.1.b table) written.
+**Key facts:** pyang has NO sample-json-skeleton — use sample-xml-skeleton / jtox. Native = list-per-interface-type + 1.6MB tree; standards = single interface list, ~3–5KB. OC uses config/state twins + leafref keys. README/EXERCISES corrected for the json-skeleton error.
 
 **Session date:** 2026-05-21
 **Session type:** Week 1 Day 1 — repo bootstrap + Lab 01 pre-stage
@@ -51,11 +55,18 @@
 
 **Title:** Week 1 Day 4 — Lab 01 kickoff (pyang), once theory input is done
 
+**Next: Day 5 — NETCONF get-config (E1.2.a–d).**
+1. Verify DevNet Always-On IOS-XE reachable (nc -zv host 830). If down → fixture mode.
+2. 01_hello.py — ncclient Manager, log advertised capabilities, close. Read-only.
+3. 02_get_interfaces.py — get_config on running, filtered to interfaces → output/running-interfaces.xml.
+4. Notes 1.2: get vs get-config, why get-config, what candidate datastore changes.
+Theory-first, dry-run default, one call at a time. Still read-only all of Week 1.
+
 **Theory input status (Beto, Days 1–3):**
 - ✅ CBT Nuggets **Data Modelling** module — watched.
 - ✅ silvancodes **1.0_Foundation_Deep_Dive** — read.
-- ⏳ `notes/01-foundation.md` — confirm started.
-- ⏳ `pip install -r requirements.txt` + freeze to `requirements.lock` — confirm done.
+- ✅ `notes/01-foundation.md` — confirm started.
+- ✅ `pip install -r requirements.txt` + freeze to `requirements.lock` — confirm done.
 - ⏳ DevNet Always-On IOS-XE sandbox host + creds in `.env` — needed by Day 5, can confirm Day 4 evening.
 
 **Next AI session sub-steps (Day 4 — pyang lab, theory-first, piece by piece):**
@@ -119,12 +130,12 @@ Empty — no mocks taken yet.
 
 | Domain | Sub-topics covered | Sub-topics remaining | Coverage % |
 |---|---|---|---|
-| 1.0 Foundation | 0 / 5 | 5 | 0% |
+| 1.0 Foundation | 4 / 5 | 1 (1.2) | 80% |
 | 2.0 Device-Level | 0 / 7 | 7 | 0% |
 | 3.0 Controller-Based | 0 / 6 | 6 | 0% |
 | 4.0 Operations | 0 / 6 | 6 | 0% |
 | 5.0 AI in Automation | 0 / 4 | 4 | 0% |
-| **Overall** | **0 / 28** | **28** | **0%** |
+| **Overall** | **4 / 28** | **24** | **14%** |
 
 *Updated end of each week as sub-topics get touched and labbed.*
 
@@ -132,7 +143,10 @@ Empty — no mocks taken yet.
 
 ## 9. Notes for the next AI session
 
-- **Entry point is Day 4 (pyang lab).** Repo bootstrap, Lab 01 pre-stage, AND theory input (CBT Nuggets Data Modelling + silvancodes 1.0) are ALL done. Open with a brief confirm of theory absorption — a quick check, not a re-teach — then go straight into the pyang theory walk and lab. Do NOT send him back to videos.
+- Entry point Day 5 = NETCONF get-config. 01-pyang fully done and committed.
+- DevNet IOS-XE sandbox host+creds must be in .env before Day 5. Confirm tonight.
+- pyang json-skeleton myth corrected in README/EXERCISES — don't re-add it.
+- yang-models/ now holds full OC + native dep chains; -p . required for any pyang run there.
 - **Beto has passed AUTOCOR.** Skip basic Python, Git, NETCONF/RESTCONF, YANG concept introductions. He knows these. Week 1 is exam-aligned revisit, not first-time teaching.
 - **Lab 01 is already pre-staged.** Plan + 17-task checklist live in `labs/01-foundation/EXERCISES.md` and per-exercise READMEs (`01-pyang`, `02-netconf-getconfig`, `03-restconf-get`). Read those first — don't re-plan what's already planned.
 - **First lab approach:** theory first, piece by piece, dry-run by default. Do NOT drop completed code on him — it breaks his learning chain. Write each call together, run it, see output, then the next.
