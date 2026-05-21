@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-05-21 (Week 1 Day 1 — bootstrap + pre-stage)
 **Updated by:** Claude (Week 1 Day 1 session with Beto)
-**Status:** ✅ Repo live. Lab 01 pre-staged. Beto now on theory input (CBT Nuggets + silvancodes). Next AI session = Day 4 pyang lab.
+**Status:** ✅ Repo live. Lab 01 pre-staged. Theory input (CBT Nuggets Data Modelling + silvancodes 1.0) DONE. Ready for Day 4 pyang lab on Beto's signal.
 
 > **For any new AI session:** Read `master_context.md` first, then this file. Confirm understanding briefly, then wait for Beto's go-ahead before doing anything.
 
@@ -13,9 +13,9 @@
 | Field | Value |
 |---|---|
 | Current week | **1** |
-| Current day in week | Day 1 complete; Days 2–3 = theory input (Beto solo); next AI touch = Day 4 |
+| Current day in week | Days 1–3 done (bootstrap + theory input). Ready for Day 4 (pyang lab). |
 | Current blueprint domain | 1.0 Foundation |
-| Current sub-topic | About to cover 1.1–1.5 via theory (Days 1–3), then Lab 01 (Days 4–6) |
+| Current sub-topic | 1.1–1.5 theory done; about to lab them (Lab 01, Days 4–6) |
 | Days until ceiling exam date (2026-08-17) | 88 |
 | Active sandbox reservation | none (Meraki public key always available; first reservation ~Day 24) |
 | Weeks completed | 0 / 13 |
@@ -51,11 +51,12 @@
 
 **Title:** Week 1 Day 4 — Lab 01 kickoff (pyang), once theory input is done
 
-**Prerequisite before next AI session (Beto solo, Days 2–3):**
-- Watch CBT Nuggets **Data Modelling** module. (Python Basics + Git Basics are AUTOCOR revisit — skim or skip.)
-- Read silvancodes **1.0_Foundation_Deep_Dive**.
-- Start `notes/01-foundation.md` in own words.
-- `pip install -r requirements.txt` from repo root; freeze to `requirements.lock` once it succeeds.
+**Theory input status (Beto, Days 1–3):**
+- ✅ CBT Nuggets **Data Modelling** module — watched.
+- ✅ silvancodes **1.0_Foundation_Deep_Dive** — read.
+- ⏳ `notes/01-foundation.md` — confirm started.
+- ⏳ `pip install -r requirements.txt` + freeze to `requirements.lock` — confirm done.
+- ⏳ DevNet Always-On IOS-XE sandbox host + creds in `.env` — needed by Day 5, can confirm Day 4 evening.
 
 **Next AI session sub-steps (Day 4 — pyang lab, theory-first, piece by piece):**
 
@@ -131,7 +132,7 @@ Empty — no mocks taken yet.
 
 ## 9. Notes for the next AI session
 
-- **Entry point is Day 4 (pyang lab), not Day 1.** Repo bootstrap and Lab 01 pre-stage are done. Beto is doing theory input (Days 2–3) between sessions. First thing next session: confirm theory absorption before launching into pyang — do NOT assume foundation is fresh just because AUTOCOR covered it.
+- **Entry point is Day 4 (pyang lab).** Repo bootstrap, Lab 01 pre-stage, AND theory input (CBT Nuggets Data Modelling + silvancodes 1.0) are ALL done. Open with a brief confirm of theory absorption — a quick check, not a re-teach — then go straight into the pyang theory walk and lab. Do NOT send him back to videos.
 - **Beto has passed AUTOCOR.** Skip basic Python, Git, NETCONF/RESTCONF, YANG concept introductions. He knows these. Week 1 is exam-aligned revisit, not first-time teaching.
 - **Lab 01 is already pre-staged.** Plan + 17-task checklist live in `labs/01-foundation/EXERCISES.md` and per-exercise READMEs (`01-pyang`, `02-netconf-getconfig`, `03-restconf-get`). Read those first — don't re-plan what's already planned.
 - **First lab approach:** theory first, piece by piece, dry-run by default. Do NOT drop completed code on him — it breaks his learning chain. Write each call together, run it, see output, then the next.
