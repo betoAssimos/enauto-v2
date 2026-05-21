@@ -1,8 +1,8 @@
 # Handover — Current State of the ENAUTO 300-435 Study
 
-**Last updated:** 2026-05-19 (planning session)
-**Updated by:** Claude (planning session with Beto)
-**Status:** ✅ Planning complete. Ready to begin Week 1, Day 1.
+**Last updated:** 2026-05-21 (Week 1 Day 1 — bootstrap + pre-stage)
+**Updated by:** Claude (Week 1 Day 1 session with Beto)
+**Status:** ✅ Repo live. Lab 01 pre-staged. Beto now on theory input (CBT Nuggets + silvancodes). Next AI session = Day 4 pyang lab.
 
 > **For any new AI session:** Read `master_context.md` first, then this file. Confirm understanding briefly, then wait for Beto's go-ahead before doing anything.
 
@@ -12,32 +12,36 @@
 
 | Field | Value |
 |---|---|
-| Current week | **0 (pre-Week 1)** |
-| Current day in week | n/a |
-| Current blueprint domain | n/a — about to start 1.0 |
-| Current sub-topic | n/a — about to start 1.1 (OpenConfig/IETF/native YANG) |
-| Days until ceiling exam date (2026-08-17) | 90 |
-| Active sandbox reservation | none |
+| Current week | **1** |
+| Current day in week | Day 1 complete; Days 2–3 = theory input (Beto solo); next AI touch = Day 4 |
+| Current blueprint domain | 1.0 Foundation |
+| Current sub-topic | About to cover 1.1–1.5 via theory (Days 1–3), then Lab 01 (Days 4–6) |
+| Days until ceiling exam date (2026-08-17) | 88 |
+| Active sandbox reservation | none (Meraki public key always available; first reservation ~Day 24) |
 | Weeks completed | 0 / 13 |
 
 ---
 
 ## 2. Last session — summary
 
-**Session date:** 2026-05-19
-**Session type:** Strategy + planning
-**Outcome:** Both foundation documents drafted (`master_context.md` and this `handover.md`). Repo strategy decided: Option C — fresh, study-driven structure, no AUTOCOR-style platform overhead. Schedule confirmed. Mock-shape rules and readiness signals defined.
+**Session date:** 2026-05-21
+**Session type:** Week 1 Day 1 — repo bootstrap + Lab 01 pre-stage
+**Outcome:** Repo is live on GitHub with foundation docs, project scaffold, and full directory skeleton. Week 1 theory map delivered. Lab 01 (Foundation) fully pre-staged with READMEs and exercise checklist. Beto handed off to solo theory input (Days 2–3).
 
-**Key decisions made this session:**
-- Repo: `https://github.com/betoAssimos/enauto-v2` (public, empty on GitHub, fresh start)
-- Old local `~/enauto-v2` directory: move to `~/enauto-v2-old-backup` before creating new structure
-- Schedule: 13 weeks default, compression allowed if mock evidence supports it
-- Resources: CBT Nuggets for video theory, silvancodes for written reinforcement, AI for labs + mocks
-- Mocks: per-section (20Q), per-controller in Section 3 (4 × 20Q), full-length ×2 in Week 13
-- Mock-shape calibration against the 59-question dump; Beto holds permanent veto
-- Readiness: composite signals (silvancodes is the independent calibration), not single AI-mock score
-- Sandbox booking: just-in-time, ~4 days before each controller week
-- Old `enterprise-netauto-platform` MCP server (in connector list): stale, ignore
+**What was done this session:**
+- Local cleanup done (`~/enauto-v2` → `~/enauto-v2-old-backup`, fresh dir created).
+- Directory skeleton built (labs/, mocks/, notes/, tests/ per master_context §12).
+- Project files generated and committed: `README.md`, `requirements.txt`, `pyproject.toml`, `secrets.example.env`, `.gitignore`.
+- Initial push to `main` succeeded (commit `93f99c7`).
+- **Cleanup:** WSL `:Zone.Identifier` files had been committed by accident; deleted, pattern added to `.gitignore`, committed (`0bad012`).
+- **Week 1 theory map** delivered: blueprint 1.1–1.5 mapped to CBT Nuggets Data Modelling module + silvancodes 1.0 deep-dive, with proactive listen-for distinctions (OpenConfig/IETF/native naming, NETCONF datastore semantics, RESTCONF media types, RFC 8340 tree symbols).
+- **Lab 01 pre-staged** (chosen over starting theory immediately — pure prep, no code): 5 READMEs + EXERCISES.md (17 blueprint-tagged tasks) covering pyang (Day 4), NETCONF get-config (Day 5), RESTCONF GET (Day 6). All read-only; writes deferred to Week 2.
+
+**Key facts established this session:**
+- `requirements.txt` is unpinned at first install; freeze to `requirements.lock` after first successful `pip install`.
+- `catalystcentersdk` may not resolve in pip — fallback is legacy `dnacentersdk`.
+- Catalyst SD-WAN has no official SDK — using `requests` directly.
+- WSL environment: watch for `:Zone.Identifier` files on any Windows→Linux file copy. `.gitignore` now catches them, but eyeball `ls -la` after copying.
 
 ---
 
@@ -45,34 +49,32 @@
 
 **Title:** Week 1 Day 1 — Repo bootstrap and Foundation kickoff
 
-**Sub-steps in order:**
+**Title:** Week 1 Day 4 — Lab 01 kickoff (pyang), once theory input is done
 
-1. **Local cleanup.**
-   ```bash
-   mv ~/enauto-v2 ~/enauto-v2-old-backup
-   mkdir ~/enauto-v2 && cd ~/enauto-v2
-   ```
-2. **Commit the two foundation documents.** Place `master_context.md` and `handover.md` in the repo root.
-3. **Create the directory skeleton** (per repo conventions in master_context.md §12):
-   ```
-   labs/{01-foundation,02-device,03-catalyst-center,03-meraki,03-sdwan,03-ise,04-operations,05-ai}/
-   mocks/{section-1,section-2,section-3-catc,section-3-meraki,section-3-sdwan,section-3-ise,section-4,section-5,full-length}/
-   notes/
-   tests/
-   ```
-4. **Add Python project files:** `requirements.txt`, `pyproject.toml`, `secrets.example.env`, `.gitignore`. AI will draft these in the first Week 1 working session.
-5. **Initial push to GitHub.** `git init`, first commit, push to `main`.
-6. **Start Week 1 theory:** Beto watches CBT Nuggets Python Basics + Git Basics + Data Modelling modules. AI does not touch this — it's pure input on Beto's side.
-7. **Read silvancodes `1.0_Foundation_Deep_Dive`** in parallel with the videos.
-8. **Lab 01 kickoff** once videos + reading are complete: AI walks Beto through a small pyang + ncclient lab, theory first, piece by piece.
+**Prerequisite before next AI session (Beto solo, Days 2–3):**
+- Watch CBT Nuggets **Data Modelling** module. (Python Basics + Git Basics are AUTOCOR revisit — skim or skip.)
+- Read silvancodes **1.0_Foundation_Deep_Dive**.
+- Start `notes/01-foundation.md` in own words.
+- `pip install -r requirements.txt` from repo root; freeze to `requirements.lock` once it succeeds.
 
-**Estimated time for Week 1:** ~22 hours over 7 days. Foundation is mostly revisit territory from AUTOCOR — if Beto absorbs fast, Week 1 may compress.
+**Next AI session sub-steps (Day 4 — pyang lab, theory-first, piece by piece):**
+
+1. Brief confirm of theory absorption before any command runs — do NOT assume foundation is fresh just because AUTOCOR covered it; confirm with Beto.
+2. Theory walk: where YANG models live, namespace conventions, container/list/leaf in tree form, RFC 8340 symbol set.
+3. Acquire three "interfaces" YANG modules (OpenConfig, IETF, Cisco-native) → `labs/01-foundation/01-pyang/yang-models/`. Note source URLs.
+4. `pyang -f tree` on each; read output together; identify symbols.
+5. `pyang -f sample-json-skeleton` and `-f sample-xml-skeleton` on OpenConfig interfaces; trace each line back to the tree.
+6. Note structural differences (JSON vs XML, flavor vs flavor) in `notes/01-foundation.md`.
+
+Full plan + 17-task checklist already pre-staged in `labs/01-foundation/EXERCISES.md` and the per-exercise READMEs. Day 5 = NETCONF get-config; Day 6 = RESTCONF GET; Day 7 = 20Q mock on 1.0.
+
+**Estimated time for Week 1:** ~22 hours over 7 days. Foundation is mostly revisit territory from AUTOCOR — if Beto absorbs fast, Week 1 may compress (needs Day 7 mock ≥85% + Beto shape certification per master_context §7).
 
 ---
 
 ## 4. Open questions / pending decisions
 
-None at this moment. All blocking decisions resolved in the planning session.
+None blocking. Day 5–6 sandbox availability (DevNet Always-On IOS-XE) is the one thing to confirm before Day 5; fixture fallback exists if it's down.
 
 *Add new entries here as they come up during sessions. Each entry: `[DATE] question / decision needed.`*
 
@@ -129,12 +131,16 @@ Empty — no mocks taken yet.
 
 ## 9. Notes for the next AI session
 
-- **First-time session for Week 1.** Beto has not yet started any CBT Nuggets videos for this course. Do not assume foundation knowledge is fresh — confirm with him before launching into ncclient code.
-- **Beto has passed AUTOCOR.** Skip basic Python, Git, NETCONF/RESTCONF, YANG concept introductions. He knows these. The Week 1 work is exam-aligned revisit, not first-time teaching.
-- **The 59-question dump is the shape reference for mocks.** When generating the Week 1 mock (end of Week 1), open the dump and match the texture.
-- **First lab approach:** theory first, piece by piece, dry-run by default. Do not drop completed code on him. He explicitly stated in past sessions that this breaks his learning chain.
-- **Old `~/enauto-v2` directory exists locally** with some Lab 01/02 work from earlier sessions. The plan is to back it up (`mv` to `~/enauto-v2-old-backup`) and start the public repo fresh. Do not try to import the old code wholesale.
-- **The local lab is down.** No Containerlab topology running. Any device-level lab in Weeks 1–3 needs to either (a) run against a DevNet sandbox device, (b) be theoretical/dry-run only, or (c) rebuild a small Containerlab topology in Week 2 if Beto wants live targets. Discuss with him before choosing.
+- **Entry point is Day 4 (pyang lab), not Day 1.** Repo bootstrap and Lab 01 pre-stage are done. Beto is doing theory input (Days 2–3) between sessions. First thing next session: confirm theory absorption before launching into pyang — do NOT assume foundation is fresh just because AUTOCOR covered it.
+- **Beto has passed AUTOCOR.** Skip basic Python, Git, NETCONF/RESTCONF, YANG concept introductions. He knows these. Week 1 is exam-aligned revisit, not first-time teaching.
+- **Lab 01 is already pre-staged.** Plan + 17-task checklist live in `labs/01-foundation/EXERCISES.md` and per-exercise READMEs (`01-pyang`, `02-netconf-getconfig`, `03-restconf-get`). Read those first — don't re-plan what's already planned.
+- **First lab approach:** theory first, piece by piece, dry-run by default. Do NOT drop completed code on him — it breaks his learning chain. Write each call together, run it, see output, then the next.
+- **All Week 1 labs are read-only.** No `edit-config`, no PUT/PATCH/POST/DELETE. Writes start Week 2.
+- **The 59-question dump is the shape reference** for the Day 7 mock. Open it and match texture before generating.
+- **DevNet Always-On IOS-XE sandbox** needed for Day 5–6 (NETCONF 830 / RESTCONF 443). Beto verifies host + creds into `.env` by Day 4 evening. If offline → fixture mode (AI generates representative XML/JSON; exam-relevant skill preserved).
+- **Local Containerlab is down.** Day 5–6 run against DevNet sandbox or fixtures. Rebuilding a local topology is a Week 2 decision — discuss before choosing.
+- **WSL gotcha:** Windows→Linux file copies create `:Zone.Identifier` files. `.gitignore` now catches them, but eyeball `ls -la` / `git status` after copying files in.
+- **Old `~/enauto-v2-old-backup`** holds earlier Lab 01/02 work. Do NOT import wholesale — fresh repo by design.
 
 ---
 
