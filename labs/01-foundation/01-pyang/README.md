@@ -8,7 +8,7 @@
 
 A command-line YANG validator and translator. Given a `.yang` file, it produces:
 - **`-f tree`** — the RFC 8340 tree diagram (what the model looks like as a path).
-- **`-f sample-json-skeleton`** — a JSON template showing the payload shape.
+- **`-f sample-json-skeleton`** — not working jtox can be used, made JSON by hand
 - **`-f sample-xml-skeleton`** — an XML template showing the same.
 
 These three commands map directly to blueprint sub-topics 1.5, 1.3, 1.4 respectively.

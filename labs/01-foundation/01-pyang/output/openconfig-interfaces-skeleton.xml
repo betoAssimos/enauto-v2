@@ -1,27 +1,3 @@
-# 1.0 Foundation — Notes
-
-## 1.1 OpenConfig / IETF / native YANG
-| Module | Namespace URI | Root path | Size
-|---|---|---|---|
-| ietf-interfaces | urn:ietf:params:xml:ns:yang:ietf-interfaces | /interfaces/interface | single interface list with type, same as openconfig
-| openconfig-interfaces | http://openconfig.net/yang/interfaces | /interfaces/interface | leafref key instead of plain value like IETF (name string). It also uses config/state twin split (config for configurable leafs and state for oper read-only leafs)
-| Cisco-IOS-XE-native | http://cisco.com/ns/yang/Cisco-IOS-XE-native | /native/interface | interfaces are different per type (one list for gigabit, another list for tengigabit and so on)
-
-## 1.2 NETCONF / RESTCONF
-
-## 1.3 JSON payload from YANG
-{
-  "openconfig-interfaces:interfaces": {
-    "interface": [
-      {
-        "name": "GigabitEthernet1",
-        "config": { "name": "GigabitEthernet1", "type": "...", "mtu": 1500 }
-      }
-    ]
-  }
-}
-
-## 1.4 XML payload from YANG
 <?xml version='1.0' encoding='UTF-8'?>
 <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <interfaces xmlns="http://openconfig.net/yang/interfaces">
@@ -119,15 +95,3 @@
     </interface>
   </interfaces>
 </data>
-
-## 1.5 RFC 8340 tree interpretation
-+--rw	Read-write config node	+--rw name string
-+--ro	Read-only operational node	+--ro oper-status enumeration
-? after name	Optional leaf (not mandatory)	+--rw description? string
-* after name	List or leaf-list (0..n entries)	+--rw interface* [name]
-! after name	Presence container	+--rw ietf-ip:ipv4!
-[name]	List key(s)	+--rw interface* [name]
-+--:(case)	Choice case branch	+--:(prefix-length)
-{feature}?	Conditional on YANG feature	+--rw mtu? uint16 {if-mib}?
-Indentation	Hierarchy depth (child nodes)	3 spaces per level
-|	Vertical connector	Shows tree structure
