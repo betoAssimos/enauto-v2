@@ -1,8 +1,8 @@
 # Handover — Current State of the ENAUTO 300-435 Study
 
-**Last updated:** 2026-05-21 (Week 1 Day 4 — Lab 01 pyang block complete)
-**Updated by:** Beto
-**Status:** ✅ 01-pyang done. 1.1 notes written. Ready for Day 5 (NETCONF get-config).
+**Last updated:** 2026-05-23 (Week 1 Day 7 — Lab 01 complete, 1.0 closed, Day 7 mock shape-vetoed)
+**Updated by:** Beto + AI session
+**Status:** ✅ Lab 01 fully done (pyang + NETCONF get-config + RESTCONF GET). 1.0 Foundation at 100%. Day 7 mock attempted, verdict **Off** — score not counted, recalibration guidance recorded below. Ready for Week 2 (Device-Level) on Beto's go-ahead.
 
 > **For any new AI session:** Read `master_context.md` first, then this file. Confirm understanding briefly, then wait for Beto's go-ahead before doing anything.
 
@@ -12,83 +12,65 @@
 
 | Field | Value |
 |---|---|
-| Current week | **1** |
-| Current day in week | Day 4 done (pyang). Ready for Day 5 (NETCONF get-config). |
-| Current blueprint domain | 1.0 Foundation |
-| Current sub-topic | 1.1/1.3/1.4/1.5 labbed; 1.2 next (Days 5–6) |
-| Days until ceiling exam date (2026-08-17) | 88 |
-| Active sandbox reservation | none (Meraki public key always available; first reservation ~Day 24) |
-| Weeks completed | 0 / 13 |
+| Current week | **1 (complete)** |
+| Current day in week | Day 7 done (mock attempted, shape-vetoed Off). Week 1 labs all complete. |
+| Current blueprint domain | 1.0 Foundation — **100% covered and labbed** |
+| Current sub-topic | 1.1–1.5 all labbed. Next domain: 2.0 Device-Level (Week 2). |
+| Days until ceiling exam date (2026-08-17) | ~86 (note: calendar/day-count offset exists — see §4) |
+| Active sandbox reservation | none (Meraki public key always available; first reservation ~Day 24 for Catalyst Center) |
+| Weeks completed | 1 / 13 |
 
 ---
 
 ## 2. Last session — summary
 
-**Session date:** 2026-05-21 (Day 4)
-**Outcome:** 01-pyang complete. Fetched 3 interfaces modules + full dependency chains (native needed 6 deps via -p; OpenConfig needed 5, incl. transport-types from optical-transport/ + platform-types). Ran -f tree on all three, saved to output/. XML skeleton on OpenConfig. JSON done by hand. 1.1 notes (E1.1.b table) written.
-**Key facts:** pyang has NO sample-json-skeleton — use sample-xml-skeleton / jtox. Native = list-per-interface-type + 1.6MB tree; standards = single interface list, ~3–5KB. OC uses config/state twins + leafref keys. README/EXERCISES corrected for the json-skeleton error.
+**Session date:** 2026-05-23 (Days 5–7, single sitting)
+**Session type:** Week 1 Days 5–6 labs + Day 7 mock
+**Outcome:** Lab 01 completed end to end. 1.0 Foundation closed to 100%. Day 7 mock generated and sat; Beto vetoed shape (**Off**), so score does not count. Recalibration notes captured for next mock build.
 
-**Session date:** 2026-05-21
-**Session type:** Week 1 Day 1 — repo bootstrap + Lab 01 pre-stage
-**Outcome:** Repo is live on GitHub with foundation docs, project scaffold, and full directory skeleton. Week 1 theory map delivered. Lab 01 (Foundation) fully pre-staged with READMEs and exercise checklist. Beto handed off to solo theory input (Days 2–3).
+**What was done:**
+- **Day 5 — NETCONF get-config (E1.2.a–d).** `01_hello.py`: ncclient `manager.connect`, logged advertised capabilities, clean close. Read off real datastore support — box advertises `writable-running`, `rollback-on-error`, `validate`, `xpath`, `with-defaults`; **no `:candidate`, no `:startup`.** `02_get_interfaces.py`: `get_config(source="running")` with subtree filters for both IETF (`urn:ietf:params:xml:ns:yang:ietf-interfaces`) and OpenConfig (`http://openconfig.net/yang/interfaces`). Pretty-printed to disk via `xml.dom.minidom.toprettyxml`. Output: `running-interfaces-ietf.xml`, `running-interfaces-openconfig.xml`.
+- **Day 6 — RESTCONF GET (E1.3).** `01_get_interfaces_json.py`: `requests.get` to `/restconf/data/ietf-interfaces:interfaces`, `Accept: application/yang-data+json`, HTTP Basic auth, `verify=False`. 200 OK. Parsed with `resp.json()`, saved pretty to `output/interfaces.json`.
+- **1.2 note** written by Beto into `notes/01-foundation.md` (datastores, get vs get-config, subtree filter, IETF vs OC structure). Foundation notes now complete.
+- **Day 7 mock** — 20Q on 1.0, five-mode rotation attempted. Sat under exam conditions. Score 18/20 raw, **but Beto vetoed shape → Off → score not counted.** See §6 and §11.
 
-**What was done this session:**
-- Local cleanup done (`~/enauto-v2` → `~/enauto-v2-old-backup`, fresh dir created).
-- Directory skeleton built (labs/, mocks/, notes/, tests/ per master_context §12).
-- Project files generated and committed: `README.md`, `requirements.txt`, `pyproject.toml`, `secrets.example.env`, `.gitignore`.
-- Initial push to `main` succeeded (commit `93f99c7`).
-- **Cleanup:** WSL `:Zone.Identifier` files had been committed by accident; deleted, pattern added to `.gitignore`, committed (`0bad012`).
-- **Week 1 theory map** delivered: blueprint 1.1–1.5 mapped to CBT Nuggets Data Modelling module + silvancodes 1.0 deep-dive, with proactive listen-for distinctions (OpenConfig/IETF/native naming, NETCONF datastore semantics, RESTCONF media types, RFC 8340 tree symbols).
-- **Lab 01 pre-staged** (chosen over starting theory immediately — pure prep, no code): 5 READMEs + EXERCISES.md (17 blueprint-tagged tasks) covering pyang (Day 4), NETCONF get-config (Day 5), RESTCONF GET (Day 6). All read-only; writes deferred to Week 2.
-
-**Key facts established this session:**
-- `requirements.txt` is unpinned at first install; freeze to `requirements.lock` after first successful `pip install`.
-- `catalystcentersdk` may not resolve in pip — fallback is legacy `dnacentersdk`.
-- Catalyst SD-WAN has no official SDK — using `requests` directly.
-- WSL environment: watch for `:Zone.Identifier` files on any Windows→Linux file copy. `.gitignore` now catches them, but eyeball `ls -la` after copying.
+**Key technical facts established (real device output, devnetsandboxiosxec9k.cisco.com):**
+- Same 12 interfaces pulled three ways (NETCONF/XML IETF, NETCONF/XML OC, RESTCONF/JSON) — model is transport- and encoding-independent. This is the core 1.2–1.4 demonstration.
+- **YANG `list` → repeated sibling elements in XML, JSON array of objects in JSON.** Same list, two serializations.
+- **OpenConfig** wraps writable leaves in a `<config>` container (config/state twin; `get-config` returns `<config>` only, no `<state>`), adds a `subinterfaces` layer, encodes IPv4 mask as `prefix-length`. **IETF** places leaves bare under `<interface>`, encodes mask as dotted `netmask`. Same fact, different model.
+- `Accept` header selects RESTCONF payload format (`+json` / `+xml`); same URL, different encoding.
+- RESTCONF JSON top key is module-qualified: `"ietf-interfaces:interfaces"`, then `"interface": [...]` inside.
+- `~` is NOT expanded by Python `open()` — use relative paths from repo root or `os.path.expanduser`.
+- `.env` needs `load_dotenv()` (python-dotenv is in the locked deps) — `os.getenv` does not read the file by itself.
 
 ---
 
 ## 3. Next planned step
 
-**Title:** Week 1 Day 1 — Repo bootstrap and Foundation kickoff
+**Title:** Week 2 — Device-Level Automation (blueprint 2.1, 2.2, 2.3).
 
-**Title:** Week 1 Day 4 — Lab 01 kickoff (pyang), once theory input is done
+Per master_context §7 schedule:
+- CBT Nuggets modules: Netmiko · Modern Automation Protocols · NETCONF · RESTCONF.
+- silvancodes: 2.0_Device_Level_Deep_Dive.
+- No end-of-week mock for Week 2 (next mock is Week 3, 20Q on 2.0).
 
-**Next: Day 5 — NETCONF get-config (E1.2.a–d).**
-1. Verify DevNet Always-On IOS-XE reachable (nc -zv host 830). If down → fixture mode.
-2. 01_hello.py — ncclient Manager, log advertised capabilities, close. Read-only.
-3. 02_get_interfaces.py — get_config on running, filtered to interfaces → output/running-interfaces.xml.
-4. Notes 1.2: get vs get-config, why get-config, what candidate datastore changes.
-Theory-first, dry-run default, one call at a time. Still read-only all of Week 1.
+**Writes begin in Week 2.** Week 1 was read-only by design. Week 2 introduces `edit-config` / RESTCONF PUT/PATCH/POST — dry-run by default per master_context §4, explicit `--apply` to touch the device. **Note for write labs:** this sandbox box has no candidate datastore, so `edit-config` targets `running` directly — no candidate→commit cycle available on this device (the general candidate/commit model is still exam material regardless).
 
-**Theory input status (Beto, Days 1–3):**
-- ✅ CBT Nuggets **Data Modelling** module — watched.
-- ✅ silvancodes **1.0_Foundation_Deep_Dive** — read.
-- ✅ `notes/01-foundation.md` — confirm started.
-- ✅ `pip install -r requirements.txt` + freeze to `requirements.lock` — confirm done.
-- ⏳ DevNet Always-On IOS-XE sandbox host + creds in `.env` — needed by Day 5, can confirm Day 4 evening.
+**Compression decision: MERGED.** Beto called the Week 1→2 merge (2026-05-23). Rationale: Lab 01 and `notes/01-foundation.md` are complete — the substantive work — and the only missing compression signal was the Week 1 mock, which was deliberately voided on a shape veto, not failed. No real coverage is skipped. Week 1 is closed; work proceeds directly into Week 2 Device-Level. Note: the standard §7 trigger (mock ≥85% + shape certification) was not formally met; this merge is a deliberate judgment call by Beto, recorded as such.
 
-**Next AI session sub-steps (Day 4 — pyang lab, theory-first, piece by piece):**
-
-1. Brief confirm of theory absorption before any command runs — do NOT assume foundation is fresh just because AUTOCOR covered it; confirm with Beto.
-2. Theory walk: where YANG models live, namespace conventions, container/list/leaf in tree form, RFC 8340 symbol set.
-3. Acquire three "interfaces" YANG modules (OpenConfig, IETF, Cisco-native) → `labs/01-foundation/01-pyang/yang-models/`. Note source URLs.
-4. `pyang -f tree` on each; read output together; identify symbols.
-5. `pyang -f sample-json-skeleton` and `-f sample-xml-skeleton` on OpenConfig interfaces; trace each line back to the tree.
-6. Note structural differences (JSON vs XML, flavor vs flavor) in `notes/01-foundation.md`.
-
-Full plan + 17-task checklist already pre-staged in `labs/01-foundation/EXERCISES.md` and the per-exercise READMEs. Day 5 = NETCONF get-config; Day 6 = RESTCONF GET; Day 7 = 20Q mock on 1.0.
-
-**Estimated time for Week 1:** ~22 hours over 7 days. Foundation is mostly revisit territory from AUTOCOR — if Beto absorbs fast, Week 1 may compress (needs Day 7 mock ≥85% + Beto shape certification per master_context §7).
+**Theory input status (Beto, before Week 2 labs):**
+- ⏳ CBT Nuggets Netmiko / Modern Automation Protocols / NETCONF / RESTCONF modules — watch.
+- ⏳ silvancodes 2.0_Device_Level_Deep_Dive — read.
+- ⏳ `notes/02-device.md` — start.
 
 ---
 
 ## 4. Open questions / pending decisions
 
-None blocking. Day 5–6 sandbox availability (DevNet Always-On IOS-XE) is the one thing to confirm before Day 5; fixture fallback exists if it's down.
+- **Calendar vs day-count offset (non-blocking).** Real calendar date is ~1 day ahead of the schedule's "Day N" count (Beto confirmed: "today is day 6 since the start, keep as day 5"). Day numbers in this study are schedule-relative, not literal elapsed days. Days-to-ceiling math should be reconciled against the real calendar if it ever matters for booking. Parked for now.
+- ~~**Week 1→2 compression**~~ — DECIDED 2026-05-23: **merged.** See §3.
 
-*Add new entries here as they come up during sessions. Each entry: `[DATE] question / decision needed.`*
+*Add new entries here as they come up. Each entry: `[DATE] question / decision needed.`*
 
 ---
 
@@ -96,6 +78,7 @@ None blocking. Day 5–6 sandbox availability (DevNet Always-On IOS-XE) is the o
 
 | Sandbox | Status | Booked | Expires | Purpose |
 |---|---|---|---|---|
+| DevNet Always-On IOS-XE | ✅ Verified reachable (NETCONF 830, RESTCONF 443) | n/a | n/a | Used Week 1 Days 5–6; available for Week 2 device labs |
 | Meraki (public always-on key) | ✅ Available | n/a | n/a | Use any time for Week 5 |
 | Catalyst Center | Not booked yet | — | — | Book ~Day 24 (4 days before Week 4) |
 | SD-WAN | Not booked yet | — | — | Book ~Day 38 (4 days before Week 6) |
@@ -112,7 +95,7 @@ None blocking. Day 5–6 sandbox availability (DevNet Always-On IOS-XE) is the o
 
 | Week | Section | Score | Shape verdict | Notes |
 |---|---|---|---|---|
-| — | — | — | — | No mocks taken yet. |
+| 1 | 1.0 Foundation (20Q) | 18/20 raw — **NOT COUNTED** | **Off** | Shape vetoed. See §11 for full critique. Score void per master_context §8. Rebuild guidance carried to §11 for next mock. |
 
 *Each row added after a mock. Shape verdict = "Right" / "Off" / "Mixed" per master_context §8.*
 
@@ -120,9 +103,11 @@ None blocking. Day 5–6 sandbox availability (DevNet Always-On IOS-XE) is the o
 
 ## 7. Weak areas queue (for spaced review)
 
-Empty — no mocks taken yet.
+| Blueprint sub-topic | Why flagged | Last revisited |
+|---|---|---|
+| 1.3 / 1.4 — JSON/XML namespace→key mapping | Two mock slips (Q11: `xmlns` binds namespace, not datastore; Q14: RESTCONF JSON top key is module-qualified `ietf-interfaces:interfaces` then `interface`). Conceptual understanding sound; mechanical recall of key structure to firm up. | 2026-05-23 |
 
-*Format for entries: `[Blueprint sub-topic] — [why flagged] — [last revisited date]`. Reviewed at end of each week and end of each month.*
+*Format: `[Blueprint sub-topic] — [why flagged] — [last revisited date]`. Reviewed end of each week and end of each month.*
 
 ---
 
@@ -130,12 +115,12 @@ Empty — no mocks taken yet.
 
 | Domain | Sub-topics covered | Sub-topics remaining | Coverage % |
 |---|---|---|---|
-| 1.0 Foundation | 4 / 5 | 1 (1.2) | 80% |
+| 1.0 Foundation | 5 / 5 | 0 | **100%** |
 | 2.0 Device-Level | 0 / 7 | 7 | 0% |
 | 3.0 Controller-Based | 0 / 6 | 6 | 0% |
 | 4.0 Operations | 0 / 6 | 6 | 0% |
 | 5.0 AI in Automation | 0 / 4 | 4 | 0% |
-| **Overall** | **4 / 28** | **24** | **14%** |
+| **Overall** | **5 / 28** | **23** | **18%** |
 
 *Updated end of each week as sub-topics get touched and labbed.*
 
@@ -143,19 +128,17 @@ Empty — no mocks taken yet.
 
 ## 9. Notes for the next AI session
 
-- Entry point Day 5 = NETCONF get-config. 01-pyang fully done and committed.
-- DevNet IOS-XE sandbox host+creds must be in .env before Day 5. Confirm tonight.
-- pyang json-skeleton myth corrected in README/EXERCISES — don't re-add it.
-- yang-models/ now holds full OC + native dep chains; -p . required for any pyang run there.
-- **Beto has passed AUTOCOR.** Skip basic Python, Git, NETCONF/RESTCONF, YANG concept introductions. He knows these. Week 1 is exam-aligned revisit, not first-time teaching.
-- **Lab 01 is already pre-staged.** Plan + 17-task checklist live in `labs/01-foundation/EXERCISES.md` and per-exercise READMEs (`01-pyang`, `02-netconf-getconfig`, `03-restconf-get`). Read those first — don't re-plan what's already planned.
-- **First lab approach:** theory first, piece by piece, dry-run by default. Do NOT drop completed code on him — it breaks his learning chain. Write each call together, run it, see output, then the next.
-- **All Week 1 labs are read-only.** No `edit-config`, no PUT/PATCH/POST/DELETE. Writes start Week 2.
-- **The 59-question dump is the shape reference** for the Day 7 mock. Open it and match texture before generating.
-- **DevNet Always-On IOS-XE sandbox** needed for Day 5–6 (NETCONF 830 / RESTCONF 443). Beto verifies host + creds into `.env` by Day 4 evening. If offline → fixture mode (AI generates representative XML/JSON; exam-relevant skill preserved).
-- **Local Containerlab is down.** Day 5–6 run against DevNet sandbox or fixtures. Rebuilding a local topology is a Week 2 decision — discuss before choosing.
-- **WSL gotcha:** Windows→Linux file copies create `:Zone.Identifier` files. `.gitignore` now catches them, but eyeball `ls -la` / `git status` after copying files in.
-- **Old `~/enauto-v2-old-backup`** holds earlier Lab 01/02 work. Do NOT import wholesale — fresh repo by design.
+- **Week 1 is fully done.** Lab 01 (pyang, NETCONF get-config, RESTCONF GET) complete and committed. 1.0 at 100%. `notes/01-foundation.md` complete.
+- **Entry point is Week 2 — Device-Level (2.1/2.2/2.3).** Theory-first as always; confirm Beto's CBT Nuggets + silvancodes input before labbing.
+- **Writes start Week 2.** Dry-run by default, explicit `--apply` for device-touching calls (master_context §4). This sandbox has **no candidate datastore** — `edit-config` targets running directly.
+- **Beto has passed AUTOCOR.** Skip basics. He labs by recognition fast; theory walks should be tight, not padded.
+- **VERBOSITY: keep it short in labs.** Beto explicitly flagged over-long responses mid-session — "this should be a lab, I'm reading more than building." More code, less prose. Walk one call at a time, run, read output, next. Do not over-explain.
+- **Anti-hallucination held to account this session.** Beto correctly flagged one unsupported claim (that the exam probes per-device capability advertisement — it does not; only the general datastore model is exam material). When stating what the exam tests, only assert what's grounded. Flag uncertainty plainly.
+- **Mock shape was vetoed Off** — full rebuild guidance in §11. Read it before generating the Week 3 mock.
+- **DevNet IOS-XE sandbox** verified reachable both ports. `.env` working (`IOS_XE_HOST`, `IOS_XE_NETCONF_PORT`, `IOS_XE_USERNAME`, `IOS_XE_PASSWORD`), loaded via `load_dotenv()`.
+- **WSL gotcha:** Windows→Linux copies create `:Zone.Identifier` files. `.gitignore` catches them; still eyeball `git status` after copying.
+- **59-question dump** confirmed as shape reference (multiple choice, frequent choose-two, "refer to the exhibit" + snippet, A–E). Content stale (Meraki v0 etc.) — texture only, never a learning source.
+- **Local Containerlab still down.** Week 2 device labs run against DevNet sandbox or fixtures. Rebuild is a separate decision — discuss before choosing.
 
 ---
 
@@ -163,16 +146,38 @@ Empty — no mocks taken yet.
 
 At the end of every session, AI updates this file with:
 
-1. **New "Last updated" date** at the top.
-2. **New entry in "Last session — summary"** describing what was done.
-3. **Updated "Where we are right now"** if position changed.
-4. **Updated "Next planned step"** with concrete next sub-steps.
-5. **New entries** in mock log, weak areas, blueprint tracker as applicable.
-6. **Bookings updated** if a sandbox was reserved or released.
-7. **Notes for the next AI** updated with anything important to carry forward.
+1. New "Last updated" date at top.
+2. New entry in "Last session — summary."
+3. Updated "Where we are right now" if position changed.
+4. Updated "Next planned step."
+5. New entries in mock log, weak areas, blueprint tracker as applicable.
+6. Bookings updated if a sandbox was reserved or released.
+7. Notes for the next AI updated.
 
-Beto reviews the updated handover before closing the session. If he disagrees with anything, fix it before he leaves. The handover must reflect reality, not aspiration.
+Beto reviews the updated handover before closing. If he disagrees, fix it before he leaves. The handover must reflect reality, not aspiration.
 
 ---
 
-*End of handover. Ready for Week 1, Day 1 on Beto's signal.*
+## 11. Mock recalibration guidance — READ BEFORE BUILDING THE NEXT MOCK
+
+Day 7 mock (1.0, 20Q) was vetoed **Off**. Beto's critique was correct and actionable. The next mock (Week 3, 20Q on 2.0) must fix all of the following. This section exists so calibration time is spent once, here, not re-litigated each mock.
+
+**What went wrong:**
+
+1. **Source material was described in prose, not shown.** Many questions said "the data appeared as..." instead of pasting the actual snippet. master_context §8 point 1 requires real source material *visible in the question* — a YANG tree, JSON/XML fragment, curl/requests snippet, or playbook. This is the exact AUTOCOR failure mode. **Fix: every question shows real code/payload/tree in the body.** We have real device payloads from Lab 01 — use that texture (real interface names, real structure).
+
+2. **Mode labels didn't match mechanics.** A "Code Fill" question offered four pre-written header strings as A–D — that's a quiz, not a fill. **Fix: a real code-fill shows a snippet with an actual blank to complete.** Beto raised building a **lablet mode** — a small real code block with parts to type in — which is closest to the real exam. Add lablet as a rotation mode.
+
+3. **No "choose two" questions.** The 59Q dump is ~1/3 choose-two. Running zero made the texture wrong. **Fix: include a realistic share of choose-two (roughly 1 in 4).**
+
+4. **Answer-letter clustering.** Key was A×4, B×12, C×3, D×1 — 12 B's out of 20 is a tell. **Fix: flatten the answer distribution to roughly uniform across A/B/C/D (and check it before presenting).**
+
+5. **Overall "didn't feel like the real exam."** The combination of the above. The standard is the 59Q dump's texture: scenario + visible artifact + plausible technical distractors.
+
+**Direction (Beto's framing):** calibration should serve what Beto needs to learn, not endless shape-tuning. Bank these five fixes and apply them directly to the next mock build rather than running throwaway calibration rounds. The next mock should both *count* (correct shape) and *target real 2.0 content*.
+
+**Grading note from this session (for the record, score void):** raw 18/20. Two misses (Q11, Q14) were JSON/XML namespace→key mechanics, not conceptual gaps — logged in §7 weak queue.
+
+---
+
+*End of handover. Week 1 complete. Ready for Week 2 (Device-Level) on Beto's signal.*
