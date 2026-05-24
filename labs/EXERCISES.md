@@ -4,13 +4,13 @@ Tick each box as the task is completed during Days 4–6. Each task maps to a bl
 
 ## 01-pyang — Day 4
 
-- [ ] **E1.1.a** [1.1] Acquire three "interfaces" YANG modules — one OpenConfig, one IETF, one Cisco-native — and place them in `01-pyang/yang-models/`. Note the source URL of each.
+- [X] **E1.1.a** [1.1] Acquire three "interfaces" YANG modules — one OpenConfig, one IETF, one Cisco-native — and place them in `01-pyang/yang-models/`. Note the source URL of each.
 - [ ] **E1.1.b** [1.1] In `notes/01-foundation.md`, write a 3-row table comparing the three modules: filename, namespace URI, root container path, one structural difference you observed.
-- [ ] **E1.5.a** [1.5] Run `pyang -f tree` on each of the three modules. **(produce)** Save the tree output to `01-pyang/output/<flavor>-tree.txt`.
+- [X] **E1.5.a** [1.5] Run `pyang -f tree` on each of the three modules. **(produce)** Save the tree output to `01-pyang/output/<flavor>-tree.txt`.
 - [ ] **E1.5.b** [1.5] In `notes/01-foundation.md`, list every RFC 8340 tree symbol you encountered (`+--rw`, `+--ro`, `?`, `*`, `[key]`, `+---x`, etc.) and what each means in one line.
-- [ ] **E1.3.a** [1.3] Run `pyang -f sample-json-skeleton` on the OpenConfig interfaces module. **(produce)** Save to `01-pyang/output/openconfig-interfaces-skeleton.json`.
-- [ ] **E1.4.a** [1.4] Run `pyang -f sample-xml-skeleton` on the same module. **(produce)** Save to `01-pyang/output/openconfig-interfaces-skeleton.xml`.
-- [ ] **E1.3.b + E1.4.b** [1.3, 1.4] In `notes/01-foundation.md`, compare the JSON and XML skeletons of the same model side-by-side. Identify three structural differences (namespaces, array vs list syntax, key positioning, etc.).
+- [X] **E1.3.a** [1.3] Run `pyang -f sample-json-skeleton` on the OpenConfig interfaces module. **(produce)** Save to `01-pyang/output/openconfig-interfaces-skeleton.json`. there is no sample-json-skeleton, jtox is used instead.
+- [X] **E1.4.a** [1.4] Run `pyang -f sample-xml-skeleton` on the same module. **(produce)** Save to `01-pyang/output/openconfig-interfaces-skeleton.xml`.
+- [X] **E1.3.b + E1.4.b** [1.3, 1.4] In `notes/01-foundation.md`, compare the JSON and XML skeletons of the same model side-by-side. Identify three structural differences (namespaces, array vs list syntax, key positioning, etc.).
 
 ## 02-netconf-getconfig — Day 5
 
