@@ -1,0 +1,469 @@
+<?xml version="1.0" ?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>GigabitEthernet0/0</name>
+      <config>
+        <name>GigabitEthernet0/0</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <description>DO NOT TOUCH</description>
+        <enabled>true</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <description>DO NOT TOUCH</description>
+            <enabled>true</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <addresses>
+              <address>
+                <ip>10.10.20.66</ip>
+                <config>
+                  <ip>10.10.20.66</ip>
+                  <prefix-length>24</prefix-length>
+                </config>
+              </address>
+            </addresses>
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d2</mac-address>
+          <auto-negotiate>true</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/1</name>
+      <config>
+        <name>GigabitEthernet1/0/1</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>true</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>true</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d3</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+        <switched-vlan xmlns="http://openconfig.net/yang/vlan">
+          <config>
+            <interface-mode>ACCESS</interface-mode>
+            <access-vlan>10</access-vlan>
+          </config>
+        </switched-vlan>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/2</name>
+      <config>
+        <name>GigabitEthernet1/0/2</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d4</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/3</name>
+      <config>
+        <name>GigabitEthernet1/0/3</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d5</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/4</name>
+      <config>
+        <name>GigabitEthernet1/0/4</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d6</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/5</name>
+      <config>
+        <name>GigabitEthernet1/0/5</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d7</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/6</name>
+      <config>
+        <name>GigabitEthernet1/0/6</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d8</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/7</name>
+      <config>
+        <name>GigabitEthernet1/0/7</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:d9</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>GigabitEthernet1/0/8</name>
+      <config>
+        <name>GigabitEthernet1/0/8</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+        <enabled>false</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <enabled>false</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config>
+          <mac-address>00:50:56:bf:29:da</mac-address>
+          <auto-negotiate>false</auto-negotiate>
+          <enable-flow-control>true</enable-flow-control>
+          <switchport xmlns="http://cisco.com/ns/yang/cisco-xe-openconfig-if-ethernet-ext">true</switchport>
+        </config>
+        <poe xmlns="http://openconfig.net/yang/poe">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </poe>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>Loopback101</name>
+      <config>
+        <name>Loopback101</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
+        <description>Interface cree via Postman pour mon laaaab</description>
+        <enabled>true</enabled>
+      </config>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <config>
+            <index>0</index>
+            <description>Interface cree via Postman pour mon laaaab</description>
+            <enabled>true</enabled>
+          </config>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <addresses>
+              <address>
+                <ip>10.100.100.1</ip>
+                <config>
+                  <ip>10.100.100.1</ip>
+                  <prefix-length>32</prefix-length>
+                </config>
+              </address>
+            </addresses>
+            <proxy-arp>
+              <config>
+                <mode>ALL</mode>
+              </config>
+            </proxy-arp>
+          </ipv4>
+          <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <config>
+              <enabled>false</enabled>
+            </config>
+          </ipv6>
+        </subinterface>
+      </subinterfaces>
+    </interface>
+    <interface>
+      <name>Vlan1</name>
+      <config>
+        <name>Vlan1</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l3ipvlan</type>
+        <enabled>true</enabled>
+      </config>
+      <routed-vlan xmlns="http://openconfig.net/yang/vlan">
+        <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </ipv6>
+      </routed-vlan>
+    </interface>
+    <interface>
+      <name>Vlan10</name>
+      <config>
+        <name>Vlan10</name>
+        <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l3ipvlan</type>
+        <enabled>false</enabled>
+      </config>
+      <routed-vlan xmlns="http://openconfig.net/yang/vlan">
+        <ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
+          <config>
+            <enabled>false</enabled>
+          </config>
+        </ipv6>
+      </routed-vlan>
+    </interface>
+  </interfaces>
+</data>
