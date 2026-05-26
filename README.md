@@ -8,11 +8,6 @@ Cisco 300-435 ENAUTO v2.0 study repository.
 **Ceiling exam date:** 2026-08-17
 **Status:** Week 1 / 13 — Foundation
 
-## Read these first
-
-1. [`master_context.md`](./master_context.md) — operating rules, schedule, blueprint, conventions. Never modified mid-session.
-2. [`handover.md`](./handover.md) — living state document. Current position, last session output, next planned step.
-
 ## Structure
 
 ```

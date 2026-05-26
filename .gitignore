@@ -44,3 +44,5 @@ Thumbs.db
 
 # Windows download metadata (WSL artifact)
 *:Zone.Identifier
+handover.md
+master_context.md
