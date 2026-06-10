@@ -1,0 +1,12 @@
+---
+- name: Gather IOS-XE facts
+  hosts: iosxe
+  gather_facts: false
+
+  tasks:
+    - name: Collect IOS-XE device facts
+      cisco.ios.ios_facts:
+
+    - name: Show gathered facts
+      debug:
+        var: ansible_facts
