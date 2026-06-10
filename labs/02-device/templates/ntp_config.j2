@@ -1,0 +1,7 @@
+{# Template: ntp_config.j2 #}
+{% set servers = ntp_servers | default(['10.0.0.10', '10.0.0.11']) %}
+{% for server in servers %}
+ntp server {{ server }}{% if loop.first %} prefer{% endif %}
+ 
+{% endfor %}
+ntp source {{ ntp_source_interface | default('Loopback0') }}
