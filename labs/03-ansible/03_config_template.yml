@@ -1,0 +1,12 @@
+---
+- name: Configure NTP on cisco device
+  hosts: iosxe
+  gather_facts: false
+  vars:
+    ntp_primary: 1.1.1.1
+    ntp_secondary: 2.2.2.2
+
+  tasks:
+    - name: Configure NTP
+      cisco.ios.ios_config:
+        src: ntp.j2
