@@ -7,6 +7,7 @@ org = "organizations"
 
 headers = {
     "X-Cisco-Meraki-API-Key": merakikey
+    # headers = {"Authorization": f"Bearer {merakikey}"}
 }
 
 response = requests.get(url=base_url + org, headers=headers).json()
