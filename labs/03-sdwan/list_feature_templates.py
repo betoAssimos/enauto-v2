@@ -15,6 +15,12 @@ auth_url = f"{base_url}/j_security_check"
 session = requests.session()
 session.post(url=auth_url, data=payload, verify=False)
 
+token_url = f"{base_url}/dataservice/client/token"
+
+token_response = session.get(url=token_url, verify=False)
+token = token_response.text
+session.headers.update({"X-XSRF-TOKEN": token})
+
 # ── Get all feature templates ─────────────────────────────────
 response = session.get(
     f"{base_url}/dataservice/template/feature",

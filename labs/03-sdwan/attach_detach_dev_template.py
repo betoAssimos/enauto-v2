@@ -20,6 +20,7 @@ token_url = f"{base_url}/dataservice/client/token"
 
 token_response = session.get(url=token_url, verify=False)
 token = token_response.text
+session.headers.update({"X-XSRF-TOKEN": token})
 
 # ── Before attaching, get the variables the template needs ────
 template_id = "<device-template-id>"
