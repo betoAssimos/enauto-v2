@@ -1,7 +1,7 @@
 import requests
 from rich import print
 
-merakikey = "ADD_MERAKI_KEY_HERE"
+merakikey = "a65c3c192dc8b8443a872f52cfe4d3dcb858cd9d"
 base_url = "https://api.meraki.com/api/v1/"
 org = "organizations"
 
