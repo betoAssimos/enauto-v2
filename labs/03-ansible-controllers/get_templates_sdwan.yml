@@ -1,0 +1,35 @@
+---
+- name: Get templates from SD-WAN Manager
+  hosts: local
+  gather_facts: false
+
+  tasks:
+    - name: "Task 1 - Login to Manager"
+      ansible.builtin.uri:
+        url: "{{ vmanage_base_url }}/j_security_check"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          j_username: "{{ vmanage_username }}"
+          j_password: "{{ vmanage_password }}"
+        validate_certs: false
+      register: login_request
+    
+    - name: "Task 2 - Capture the Cookie"
+      set_fact:
+        session_cookie: "{{ login_request.set_cookie }}"
+    
+    - name: "Task 3 - Get Templates"
+      ansible.builtin.uri:
+        url: "{{ vmanage_base_url }}/dataservice/template/device"
+        method: GET
+        validate_certs: false
+        headers:
+          Content-Type: "application/json"
+          Cookie: "{{ session_cookie }}"
+        return_content: true
+      register: template_result
+
+    - name: "Task 4 - Filter attached templates"
+      debug:
+        msg: "{{ template_result.json.data | selectattr('devicesAttached', '>', 0) | list }}"

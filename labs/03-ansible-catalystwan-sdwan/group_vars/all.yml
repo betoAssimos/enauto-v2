@@ -1,0 +1,3 @@
+vmanage_username: "admin"
+vmanage_password: "C1sco12345"
+vmanage_base_url: "https://10.10.20.90"

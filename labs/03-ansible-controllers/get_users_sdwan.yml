@@ -1,0 +1,35 @@
+---
+- name: Get devices from SD-WAN Manager
+  hosts: local
+  gather_facts: false
+
+  tasks:
+    - name: "Task 1 - Login to Manager"
+      ansible.builtin.uri:
+        url: "{{ vmanage_base_url }}/j_security_check"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          j_username: "{{ vmanage_username }}"
+          j_password: "{{ vmanage_password }}"
+        validate_certs: false
+      register: login_request
+    
+    - name: "Task 2 - Capture the Cookie"
+      set_fact:
+        session_cookie: "{{ login_request.set_cookie }}"
+    
+    - name: "Task 3 - Get Users"
+      ansible.builtin.uri:
+        url: "{{ vmanage_base_url }}/dataservice/admin/user"
+        method: GET
+        headers:
+          Accept: "application/json"
+          Cookie: "{{ session_cookie }}"
+        validate_certs: false
+        return_content: true
+      register: user_result
+
+    - name: "Task 4 - Show Users"
+      debug:
+        msg: "{{ user_result.json.data }}"

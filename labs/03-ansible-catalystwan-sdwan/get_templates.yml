@@ -1,0 +1,17 @@
+---
+- name: Get SD-WAN templates
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get all templates
+      cisco.catalystwan.device_templates_info:
+        manager_credentials:
+          url: "{{ vmanage_base_url }}"
+          username: "{{ vmanage_username }}"
+          password: "{{ vmanage_password }}"
+      register: templates
+ 
+    - name: Display templates
+      ansible.builtin.debug:
+        msg: "{{ item.name }} — {{ item.device_type }} ({{ item.devices_attached }} attached)"
+      loop: "{{ templates.templates_info | selectattr('devices_attached', '>', 0) | list }}"
