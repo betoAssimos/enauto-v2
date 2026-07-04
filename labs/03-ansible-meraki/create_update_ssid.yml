@@ -1,0 +1,23 @@
+---
+- name: Configure a wireless SSID
+  hosts: meraki
+  gather_facts: false
+  tasks:
+    - name: Create or update SSID
+      cisco.meraki.networks_wireless_ssids:
+        meraki_api_key: "{{ meraki_api_key }}"
+        networkId: "L_123456789012345678"
+        number: "0"
+        state: present
+        name: "Corporate-WiFi"
+        enabled: true
+        authMode: "psk"
+        encryptionMode: "wpa"
+        wpaEncryptionMode: "WPA2 only"
+        psk: "{{ vault_wifi_psk }}"
+        ipAssignmentMode: "Bridge mode"
+      register: ssid_result
+ 
+    - name: Display SSID config
+      ansible.builtin.debug:
+        var: ssid_result.meraki_response

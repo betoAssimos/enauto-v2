@@ -1,0 +1,16 @@
+---
+- name: Claim a device into a Meraki network
+  hosts: meraki
+  gather_facts: false
+  tasks:
+    - name: Claim device by serial number
+      cisco.meraki.networks_devices_claim:
+        meraki_api_key: "{{ meraki_api_key }}"
+        networkId: "L_123456789012345678"
+        serials:
+          - "Q2AB-CDE4-FGHI"
+      register: claim_result
+ 
+    - name: Show claimed device
+      ansible.builtin.debug:
+        var: claim_result.meraki_response

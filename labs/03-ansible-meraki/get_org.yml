@@ -1,0 +1,14 @@
+---
+- name: List Meraki organizations
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get all organizations
+      cisco.meraki.organizations_info:
+        meraki_api_key: "{{ meraki_api_key }}"
+      register: orgs
+ 
+    - name: Display organizations
+      ansible.builtin.debug:
+        msg: "Org: {{ item.name }} (ID: {{ item.id }})"
+      loop: "{{ orgs.meraki_response }}"
