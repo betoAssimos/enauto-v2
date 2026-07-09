@@ -21,7 +21,6 @@ response = session.get(
     verify=False
 )
 vedges = response.json()["data"]
-print("##-----------------------##")
  
 # ── Get controllers only ──────────────────────────────────────
 response = session.get(

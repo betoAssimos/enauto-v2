@@ -27,9 +27,8 @@
           Accept: "application/json"
           Cookie: "{{ session_cookie }}"
         validate_certs: false
-        return_content: true
-      register: device_result
+        register: device_result
 
-    - name: "Task 4 - Show Devices"
+    - name: "Task 4 - Show Devices Counters"
       debug:
         msg: "{{ device_result.json.data }}"
