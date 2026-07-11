@@ -1,0 +1,110 @@
+# Lab 04 — TIG Stack + Model-Driven Telemetry (MDT)
+
+**Blueprint mapping:** 4.5 Model-Driven Telemetry (Domain 4.0 Operations)
+
+End-to-end MDT pipeline: Cisco IOS-XE (c8000v on containerlab) streams CPU utilization via **dial-out gRPC/kvGPB** to a **T**elegraf → **I**nfluxDB → **G**rafana stack running in Docker Compose. The subscription is configured programmatically via **NETCONF** (ncclient, `Cisco-IOS-XE-mdt-cfg` model), not CLI.
+
+```
+c8000v (172.30.30.11, VRF clab-mgmt)
+   │  dial-out gRPC :57000, kvGPB, yang-push, 5s
+   ▼
+Telegraf (inputs.cisco_telemetry_mdt) ──► InfluxDB 2.x (bucket: mdt) ──► Grafana (Flux)
+```
+
+## Components
+
+| Component | Where | Port |
+|---|---|---|
+| c8000v 17.15.04c (vrnetlab) | containerlab `clab-enauto-iosxe-01` | mgmt 172.30.30.11 |
+| Telegraf 1.34 | compose `telegraf` | 57000/tcp (gRPC receiver) |
+| InfluxDB 2.7 | compose `influxdb` | 8086 (org `lab`, bucket `mdt`) |
+| Grafana 11.2 | compose `grafana_enauto` | **3001** → 3000 |
+
+## Files
+
+- `docker-compose.yml` — the three-service stack
+- `telegraf/telegraf.conf` — `inputs.cisco_telemetry_mdt` (grpc, `:57000`) → `outputs.influxdb_v2`
+- `mdt_config.py` — ncclient script: reads existing subscriptions (`get_config`), pushes subscription 1 (`edit_config`)
+
+## Bring-up
+
+```bash
+# 1. Router (from repo root)
+sudo containerlab deploy -t containerlab/enauto.clab.yml --reconfigure
+
+# 2. Stack
+cd labs/04-operations/TIG
+docker compose up -d
+```
+
+Enable NETCONF on the router (one-time per deploy; takes ~1–2 min to initialize, first connect on 830 may be refused — retry):
+
+```
+conf t
+ netconf-yang
+end
+copy run start
+```
+
+## Configure the subscription (NETCONF)
+
+```bash
+python mdt_config.py
+```
+
+Pushes to `Cisco-IOS-XE-mdt-cfg`:
+
+| Leaf | Value |
+|---|---|
+| subscription-id | 1 |
+| stream | yang-push |
+| encoding | encode-kvgpb |
+| period | 500 centiseconds (5 s) |
+| xpath | `/process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds` |
+| source-vrf | `clab-mgmt` |
+| receiver | `grpc-tcp://172.30.30.1:57000` |
+
+Equivalent CLI (for reference — the exam tests both forms):
+
+```
+telemetry ietf subscription 1
+ encoding encode-kvgpb
+ filter xpath /process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds
+ stream yang-push
+ update-policy periodic 500
+ source-vrf clab-mgmt
+ receiver ip address 172.30.30.1 57000 protocol grpc-tcp
+```
+
+## Verify
+
+```
+! router
+show telemetry ietf subscription 1            ! State: Valid
+show telemetry ietf subscription 1 receiver   ! State: Connected
+```
+
+```bash
+# host
+docker logs telegraf --tail 20    # no gRPC errors = flowing
+```
+
+InfluxDB Data Explorer (`http://localhost:8086`, bucket `mdt`): measurement `Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization`, field `five_seconds`, tags `source`, `subscription`, `path`. New point every 5 s.
+
+Grafana (`http://localhost:3001`): InfluxDB datasource — query language **Flux**, URL `http://influxdb:8086`, org `lab`, token from compose, bucket `mdt`.
+
+```flux
+from(bucket: "mdt")
+  |> range(start: -10m)
+  |> filter(fn: (r) => r.subscription == "1")
+  |> filter(fn: (r) => r._field == "five_seconds")
+```
+
+## Gotchas hit live (the actual lessons)
+
+1. **vrnetlab c8000v puts Gi1 in VRF `clab-mgmt`** behind QEMU user-mode NAT. The global RIB is empty; the VRF holds `10.0.0.0/24` + default via `10.0.0.2`. Any traffic the router originates (including MDT dial-out) must be VRF-aware.
+2. **Outbound ICMP dies in the NAT; TCP passes.** `ping 172.30.30.1` fails forever — test reachability with `telnet 172.30.30.1 57000 /vrf clab-mgmt` instead.
+3. **`source-vrf` is mandatory** in the subscription (CLI keyword / `<source-vrf>` leaf under `<base>` in the YANG model). Without it the receiver never connects: `% Destination unreachable`.
+4. **Receiver IP = the clab management bridge IP on the host** (`172.30.30.1`) — Docker's published port 57000 answers on the bridge address, so the router reaches Telegraf without joining the compose network.
+5. **ncclient raw-string payloads:** the `<config>` wrapper must carry `xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"` or the device rejects with `unknown-element: config`.
+6. **`containerlab --reconfigure` wipes device config.** `copy run start` protects against reloads only; after a redeploy, re-run `mdt_config.py` — the script is the source of truth.
