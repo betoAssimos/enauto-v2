@@ -5,8 +5,8 @@
 Cisco 300-435 ENAUTO v2.0 study repository.
 
 **Owner:** Alberto Ássimos ([@betoAssimos](https://github.com/betoAssimos))
-**Ceiling exam date:** 2026-08-17
-**Status:** Week 1 / 13 — Foundation
+**Target date:** 2026-08-17
+**Status:** Week 10 / 13 — Foundation
 
 ## Structure
 
@@ -38,26 +38,3 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp secrets.example.env .env   # then fill in sandbox credentials
 ```
-
-## Background
-
-Beto holds CCNP 350-901 AUTOCOR. ENAUTO is the second cert toward CCNP Enterprise and CCNP Automation. This repo is study-driven and exam-aligned — no Nornir, no CI/CD, no telemetry stack. Production-scale automation infrastructure lives in a separate AUTOCOR-era repo.
-
-# SWIM — Catalyst SD-WAN Manager (Blueprint 4.3)
-
-## What this lab demonstrates
-[ ]
-
-## Scripts
-- sdwan_auth.py — [ ]
-- sdwan_inventory.py — [ ]
-- sdwan_swim_repo.py — [ ]
-- sdwan_swim_install.py — [ ]
-- sdwan_swim_status.py — [ ]
-- sdwan_swim_activate.py — [ ]
-
-## Key API facts verified live (20.10.1)
-[ payload fields discovered via 400s / deviceIP=system-ip not mgmt-ip / activate vs default partition / async action + status poll ]
-
-## Run order
-[ ]
