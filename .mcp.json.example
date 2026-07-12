@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "enauto-mcp": {
+      "type": "stdio",
+      "command": "/home/beto/enauto-v2/.venv/bin/python",
+      "args": [
+        "/home/beto/enauto-v2/labs/05-ai/mcp_server/server.py"
+      ],
+      "env": {
+        "ENAUTO_ALLOW_APPLY": "false"
+      }
+    }
+  }
+}
