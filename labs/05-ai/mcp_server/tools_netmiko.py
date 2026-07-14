@@ -16,4 +16,4 @@ DEVICE = {
 
 def get_mdt_subscription() -> str:
     with ConnectHandler(**DEVICE) as conn:
-        return conn.send_command("show running-config | section telemetry ietf subscription 1")
+        return str(conn.send_command("show running-config | section telemetry ietf subscription 1"))

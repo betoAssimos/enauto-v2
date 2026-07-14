@@ -25,7 +25,7 @@ PAYLOAD = {
     },
     "mdt-receivers": [
       {
-        "address": "192.168.1.251",
+        "address": "172.30.30.1",
         "port": 57000,
         "protocol": "grpc-tcp"
       }

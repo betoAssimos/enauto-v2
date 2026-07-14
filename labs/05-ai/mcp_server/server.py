@@ -10,6 +10,7 @@ import tools_netconf
 import tools_restconf
 import tools_netmiko
 import tools_acl
+import tools_interfaces
 
 mcp = FastMCP(name="enauto-lab")
 
@@ -97,6 +98,21 @@ def create_automation_acl(apply: bool = False) -> dict:
     if apply and not ALLOW_APPLY:
         return {"error": "REFUSED: apply=True requested but ENAUTO_ALLOW_APPLY is not set on the server host."}
     return tools_acl.create_automation_acl(apply=apply)
+
+
+@mcp.tool
+@log_tool_call
+def restconf_get(resource: str) -> dict:
+    """RESTCONF GET against iosxe-01 for an arbitrary YANG resource path.
+
+    `resource` is everything after /restconf/data/, e.g.
+    "openconfig-interfaces:interfaces", "ietf-interfaces:interfaces", or
+    "Cisco-IOS-XE-native:native/interface". This tool has no opinion on which
+    YANG model to use — pick openconfig for vendor-neutral/cross-platform
+    needs, ietf for RFC 8343 standard compatibility, or native for IOS-XE-
+    specific config detail, based on what the user is actually asking for.
+    """
+    return tools_interfaces.restconf_get(resource)
 
 
 if __name__ == "__main__":

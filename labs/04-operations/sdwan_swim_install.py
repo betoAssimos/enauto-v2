@@ -24,7 +24,3 @@ if "--apply" not in sys.argv:
 
 resp = s.post(f"{BASE}/dataservice/device/action/install", json=payload)
 print(resp.status_code, resp.text[:300])
-
-sw = s.get(f"{BASE}/dataservice/device/action/software?deviceId=10.10.1.17").json()["data"]
-for p in sw:
-    print(p["version"], "active:", p["current-partition"], "default:", p["default-partition"])
