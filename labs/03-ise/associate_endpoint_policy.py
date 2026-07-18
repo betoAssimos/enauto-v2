@@ -31,7 +31,7 @@ payload = {
     }
 }
  
-response = requests.post(
+response = requests.put(
     f"{BASE_URL}/ers/config/ancendpoint/apply",
     auth=AUTH,
     headers=HEADERS,
